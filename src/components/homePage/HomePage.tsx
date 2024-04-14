@@ -1,76 +1,127 @@
 import hero1Icon from "./../../assets/images/desktop-image-hero-1.jpg";
+import hero2Icon from "./../../assets/images/desktop-image-hero-2.jpg";
+import hero3Icon from "./../../assets/images/desktop-image-hero-3.jpg";
 import hero1MobileIcon from "./../../assets/images/mobile-image-hero-1.jpg";
+import hero2MobileIcon from "./../../assets/images/mobile-image-hero-2.jpg";
+import hero3MobileIcon from "./../../assets/images/mobile-image-hero-3.jpg";
 import imgAboutDarkIcon from "./../../assets/images/image-about-dark.jpg";
 import imgAboutLightIcon from "./../../assets/images/image-about-light.jpg";
 import arrowIcon from "./../../assets/images/icon-arrow.svg";
 import ArrowButton from "./ArrowButton";
 import "./HomePage.css";
 import { data } from "../../data";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const HomePage = () => {
-  const [caruselView, setCaruselView] = useState(1);
+  const [moveImgCarousel, setMoveImgCarousel] = useState(0);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // if (ref.current?.offsetWidth)
+    //   ref.current.scrollLeft = ref.current.offsetWidth;
+
+    const handleResize = () => {
+      if (ref.current?.offsetWidth)
+        ref.current.scrollLeft = ref.current.offsetWidth;
+      // }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    // TODO: use slide effect in carousel
     <section className="lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
-      <div className="lg:flex bg-white">
-        <div className="relative lg:max-h-[60vh] lg:w-[65vw]">
-          <img
-            // TODO: change images
-            src={hero1MobileIcon}
-            alt=" hero 1"
-            className="w-full h-full lg:hidden"
-          />
-          <img
-            src={hero1Icon}
-            alt=" hero 1"
-            className="w-full h-full hidden lg:block"
-          />
-          <div className="absolute bottom-0 right-0 lg:hidden">
-            <ArrowButton
-              setCaruselView={setCaruselView}
-              caruselView={caruselView}
-            />
-          </div>
-        </div>
-
-        <div className="p-4 relative lg:max-h-[60vh] lg:w-[65vw] lg:flex lg:justify-center">
-          <div className="lg:flex lg:justify-center lg:flex-col  lg:max-w-xs">
-            <h2 className="text-3xl font-bold pt-7 pb-5 tracking-tight lg:py-2 lg:text-2xl">
-              {caruselView === 1
-                ? data[0].title
-                : caruselView === 2
-                ? data[1].title
-                : data[2].title}
-            </h2>
-            <p>
-              {caruselView === 1
-                ? data[0].information
-                : caruselView === 2
-                ? data[1].information
-                : data[2].information}
-            </p>
-
-            <button className="flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold">
-              Shop now
+      <div
+        ref={ref}
+        className="flex overflow-x-hidden max-w-[400px] lg:w-full lg:max-w-full"
+      >
+        {data.map((d, index) => (
+          <div
+            key={index}
+            className={
+              moveImgCarousel === -1
+                ? "lg:flex bg-white max-w-full min-w-full slider-left"
+                : moveImgCarousel === 1
+                ? "lg:flex bg-white max-w-full min-w-full slider-right"
+                : "lg:flex bg-white max-w-full min-w-full"
+            }
+          >
+            <div className="relative lg:max-h-[60vh] lg:w-[65vw]">
               <img
-                src={arrowIcon}
-                alt="arrow icon"
-                className="pl-5 hover:pl-6"
+                src={
+                  index === 1 || index === 4
+                    ? hero1MobileIcon
+                    : index === 2
+                    ? hero2MobileIcon
+                    : hero3MobileIcon
+                }
+                alt=" hero 1"
+                className="w-full h-full lg:hidden"
               />
-            </button>
-            <div className="lg:absolute hidden lg:block lg:bottom-0 lg:left-0">
-              <ArrowButton
-                setCaruselView={setCaruselView}
-                caruselView={caruselView}
+              <img
+                src={
+                  index === 1 || index === 4
+                    ? hero1Icon
+                    : index === 2
+                    ? hero2Icon
+                    : hero3Icon
+                }
+                alt=" hero 1"
+                className="w-full h-full hidden lg:block"
               />
+              <div
+                className="absolute bottom-0 right-0 lg:hidden"
+                style={
+                  moveImgCarousel === 1 || moveImgCarousel === -1
+                    ? { pointerEvents: "none" }
+                    : {}
+                }
+              >
+                <ArrowButton
+                  navRef={ref}
+                  setMoveImgCarousel={setMoveImgCarousel}
+                />
+              </div>
+            </div>
+
+            <div className="p-4 relative lg:max-h-[60vh] lg:w-[65vw] lg:flex lg:justify-center">
+              <div className="lg:flex lg:justify-center lg:flex-col  lg:max-w-xs">
+                <h2 className="text-3xl font-bold pt-7 pb-5 tracking-tight lg:py-2 lg:text-2xl">
+                  {d.title}
+                </h2>
+                <p>{d.information}</p>
+
+                <button className="flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold">
+                  Shop now
+                  <img
+                    src={arrowIcon}
+                    alt="arrow icon"
+                    className="pl-5 hover:pl-6"
+                  />
+                </button>
+                <div
+                  className="lg:absolute hidden lg:block lg:bottom-0 lg:left-0"
+                  style={
+                    moveImgCarousel === 1 || moveImgCarousel === -1
+                      ? { pointerEvents: "none" }
+                      : {}
+                  }
+                >
+                  <ArrowButton
+                    navRef={ref}
+                    setMoveImgCarousel={setMoveImgCarousel}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      <div className="lg:flex lg:justify-betwee bg-white lg:space">
+      <div className="lg:flex lg:justify-between bg-white lg:space">
         <div className="relative ">
           <img src={imgAboutDarkIcon} alt=" hero 1" className="w-full h-full" />
         </div>

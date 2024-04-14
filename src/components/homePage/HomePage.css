@@ -2,16 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* .test {
-    position: relative;
-    height: 66vh;
-    width: 66vw;
+@layer utilities {
+  .slider-right {
+    animation-name: moveToRight;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    overflow: hidden;
   }
 
-  .img-test {
-    background-size: contain;
-    height: 100%;
-    width: 100%;
-  } */
+  @keyframes moveToRight {
+    0% {
+      transform: translate(0%, 0%);
+    }
+    80% {
+      transform: translate(100%, 0%);
+    }
+    100% {
+      transform: translate(100%, 0%);
+    }
+  }
+
+  .slider-left {
+    animation-name: moveToLeft;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    overflow: hidden;
+  }
+
+  @keyframes moveToLeft {
+    0% {
+      transform: translate(0%, 0%);
+    }
+    80% {
+      transform: translate(-100%, 0%);
+    }
+    100% {
+      transform: translate(-100%, 0%);
+    }
+  }
 }
