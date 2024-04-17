@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .navbar ul a.active hr {
+    @apply block mx-[0.5rem] mt-1  h-[0.15rem] bg-black border-0 rounded lg:bg-white;
+  }
+}
+
+@layer utilities {
+  .nav-animation-open {
+    background-color: #fff;
+    animation-name: moveToBottom;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    overflow: hidden;
+  }
+
+  @keyframes moveToBottom {
+    0% {
+      margin-top: -100px;
+    }
+    100% {
+      margin-top: 0px;
+    }
+  }
+
+  .nav-animation-close {
+    background-color: #fff;
+    animation-name: moveToTop;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    overflow: hidden;
+  }
+
+  @keyframes moveToTop {
+    0% {
+      margin-top: 0px;
+    }
+    100% {
+      margin-top: -100px;
+    }
+  }
+}

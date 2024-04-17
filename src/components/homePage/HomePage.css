@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer utilities {
+  .hamburger-layout:hover {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(0%) saturate(600%)
+      hue-rotate(135deg) brightness(86%) contrast(88%);
+  }
+
   .slider-right {
     animation-name: moveToRight;
     animation-duration: 2s;

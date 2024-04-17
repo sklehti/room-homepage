@@ -11,19 +11,34 @@ import ArrowButton from "./ArrowButton";
 import "./HomePage.css";
 import { data } from "../../data";
 import React, { useEffect, useState } from "react";
+import { HamburgerProps, NavbarStateProps } from "../../types";
 
-const HomePage = () => {
+const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
   const [moveImgCarousel, setMoveImgCarousel] = useState(0);
   const ref = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // if (ref.current?.offsetWidth)
-    //   ref.current.scrollLeft = ref.current.offsetWidth;
+    openMenu === NavbarStateProps.OpenState &&
+    ref.current &&
+    ref.current.scrollLeft < 1024
+      ? setOpenMenu(NavbarStateProps.CloseState)
+      : "";
+  }, []);
 
+  useEffect(() => {
+    if (ref.current?.offsetWidth)
+      ref.current.scrollLeft = ref.current.offsetWidth;
+  }, []);
+
+  useEffect(() => {
     const handleResize = () => {
-      if (ref.current?.offsetWidth)
+      if (ref.current?.offsetWidth) {
         ref.current.scrollLeft = ref.current.offsetWidth;
-      // }
+
+        if (ref.current?.scrollLeft > 1023) {
+          setOpenMenu(NavbarStateProps.DefaultState);
+        }
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -33,7 +48,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <section className="lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
+    <section className="relative lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
       <div
         ref={ref}
         className="flex overflow-x-hidden max-w-[400px] lg:w-full lg:max-w-full"
@@ -120,7 +135,6 @@ const HomePage = () => {
           </div>
         ))}
       </div>
-
       <div className="lg:flex lg:justify-between bg-white lg:space">
         <div className="relative ">
           <img src={imgAboutDarkIcon} alt=" hero 1" className="w-full h-full" />
