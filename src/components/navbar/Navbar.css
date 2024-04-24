@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  .navbar ul li.active:hover,
+  .navbar ul a.active:hover,
+  .navbar ul a.active hr:hover {
+    @apply text-slate-900 lg:text-white cursor-not-allowed;
+  }
+
   .navbar ul a.active hr {
-    @apply block mx-[0.5rem] mt-1  h-[0.15rem] bg-black border-0 rounded lg:bg-white;
+    @apply block mx-[0.5rem] mt-1  h-[0.15rem] bg-black border-0 rounded cursor-not-allowed lg:bg-white;
   }
 }
 
@@ -19,7 +25,7 @@
 
   @keyframes moveToBottom {
     0% {
-      margin-top: -100px;
+      margin-top: -110px;
     }
     100% {
       margin-top: 0px;
@@ -39,7 +45,7 @@
       margin-top: 0px;
     }
     100% {
-      margin-top: -100px;
+      margin-top: -110px;
     }
   }
 }

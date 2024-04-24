@@ -18,11 +18,18 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    openMenu === NavbarStateProps.OpenState &&
-    ref.current &&
-    ref.current.scrollLeft < 1024
-      ? setOpenMenu(NavbarStateProps.CloseState)
-      : "";
+    if (
+      openMenu === NavbarStateProps.OpenState &&
+      ref.current &&
+      ref.current.scrollLeft < 1024
+    ) {
+      {
+        setOpenMenu(NavbarStateProps.CloseState);
+        setTimeout(() => {
+          setOpenMenu(NavbarStateProps.DefaultState);
+        }, 500);
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -48,10 +55,10 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
   }, []);
 
   return (
-    <section className="relative lg:min-h-screen lg:flex lg:flex-col lg:justify-center">
+    <section className="relative">
       <div
         ref={ref}
-        className="flex overflow-x-hidden max-w-[400px] lg:w-full lg:max-w-full"
+        className="flex overflow-x-hidden w-full max-w-[500px] lg:w-full lg:max-w-full"
       >
         {data.map((d, index) => (
           <div
@@ -60,18 +67,18 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
               moveImgCarousel === -1
                 ? "lg:flex bg-white max-w-full min-w-full slider-left"
                 : moveImgCarousel === 1
-                ? "lg:flex bg-white max-w-full min-w-full slider-right"
-                : "lg:flex bg-white max-w-full min-w-full"
+                  ? "lg:flex bg-white max-w-full min-w-full slider-right"
+                  : "lg:flex bg-white max-w-full min-w-full"
             }
           >
-            <div className="relative lg:max-h-[60vh] lg:w-[65vw]">
+            <div className="relative lg:h-[60vh] lg:w-[65vw]">
               <img
                 src={
                   index === 1 || index === 4
                     ? hero1MobileIcon
                     : index === 2
-                    ? hero2MobileIcon
-                    : hero3MobileIcon
+                      ? hero2MobileIcon
+                      : hero3MobileIcon
                 }
                 alt=" hero 1"
                 className="w-full h-full lg:hidden"
@@ -81,8 +88,8 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                   index === 1 || index === 4
                     ? hero1Icon
                     : index === 2
-                    ? hero2Icon
-                    : hero3Icon
+                      ? hero2Icon
+                      : hero3Icon
                 }
                 alt=" hero 1"
                 className="w-full h-full hidden lg:block"
@@ -102,19 +109,22 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
               </div>
             </div>
 
-            <div className="p-4 relative lg:max-h-[60vh] lg:w-[65vw] lg:flex lg:justify-center">
+            <div className="p-4 relative lg:h-[60vh] lg:w-[65vw] lg:flex lg:justify-center">
               <div className="lg:flex lg:justify-center lg:flex-col  lg:max-w-xs">
                 <h2 className="text-3xl font-bold pt-7 pb-5 tracking-tight lg:py-2 lg:text-2xl">
                   {d.title}
                 </h2>
                 <p>{d.information}</p>
 
-                <button className="flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold">
+                <button
+                  onClick={() => alert("Coming soon...")}
+                  className="flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold shop-now-btn-layout"
+                >
                   Shop now
                   <img
                     src={arrowIcon}
                     alt="arrow icon"
-                    className="pl-5 hover:pl-6"
+                    className="pl-5 shop-now-img"
                   />
                 </button>
                 <div
@@ -136,11 +146,11 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
         ))}
       </div>
       <div className="lg:flex lg:justify-between bg-white lg:space">
-        <div className="relative ">
+        <div className="relative lg:h-[40vh]">
           <img src={imgAboutDarkIcon} alt=" hero 1" className="w-full h-full" />
         </div>
 
-        <div className="p-4 relative lg:w-2/5 lg:flex lg:justify-center">
+        <div className="p-4 relative lg:w-2/5 lg:flex lg:justify-center g:h-[40vh]">
           <div className="lg:flex lg:justify-center lg:flex-col  lg:max-w-xs">
             <h2 className="text-base font-bold py-4 lg:py-2 uppercase tracking-wider">
               About our furniture
@@ -156,7 +166,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative g:h-[40vh]">
           <img
             src={imgAboutLightIcon}
             alt=" hero 1"

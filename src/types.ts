@@ -16,3 +16,8 @@ export interface HamburgerStateProps {
 export interface HamburgerProps extends HamburgerStateProps {
   openMenu: NavbarStateProps;
 }
+
+export interface ArrayButtonClassProp {
+  navRef: React.RefObject<HTMLDivElement>;
+  setMoveImgCarousel: React.Dispatch<React.SetStateAction<number>>;
+}

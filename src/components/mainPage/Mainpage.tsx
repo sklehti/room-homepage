@@ -4,29 +4,52 @@ import NavBar from "../navbar/Navbar";
 import "./MainPage.css";
 import { Route, Routes } from "react-router-dom";
 import hamburgerIcon from "../../assets/images/icon-hamburger.svg";
-import {
-  HamburgerProps,
-  HamburgerStateProps,
-  NavbarStateProps,
-} from "../../types";
+import { HamburgerProps, NavbarStateProps } from "../../types";
 
 const Mainpage = () => {
   const [openMenu, setOpenMenu] = useState(NavbarStateProps.DefaultState);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (ref.current && ref.current.scrollWidth > 1023) {
+        setOpenMenu(NavbarStateProps.DefaultState);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     if (event.key === "Tab") {
+  //       event.preventDefault();
+  //       console.log("Tab key doesn't work yet!");
+  //     }
+  //   };
+
+  //   window.addEventListener("keydown", handleKeyDown);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, []);
 
   const handleOpen = () => {
     setOpenMenu(NavbarStateProps.OpenState);
   };
 
   return (
-    <div className="relative flex w-screen flex-row justify-center lg:bg-black">
-      <div className="max-w-xs md:max-w-sm lg:max-w-full lg:w-full">
-        <NavBar openMenu={openMenu} setOpenMenu={setOpenMenu} />
-
+    <div ref={ref} className="relative flex w-screen flex-row justify-center">
+      <div className="w-full max-w-[500px] lg:max-w-full lg:w-full">
         <nav>
           {openMenu === NavbarStateProps.OpenState ? (
             <></>
           ) : (
             <button
+              tabIndex={0}
               onClick={handleOpen}
               className="absolute z-10 py-10 px-6 lg:hidden"
             >
@@ -37,6 +60,7 @@ const Mainpage = () => {
               />
             </button>
           )}
+          <NavBar openMenu={openMenu} setOpenMenu={setOpenMenu} />
         </nav>
 
         <main>
@@ -71,12 +95,8 @@ const Mainpage = () => {
 export default Mainpage;
 
 export const About = ({ openMenu, setOpenMenu }: HamburgerProps) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    openMenu === NavbarStateProps.OpenState &&
-    ref.current &&
-    ref.current.scrollLeft < 1024
+    openMenu === NavbarStateProps.OpenState
       ? setOpenMenu(NavbarStateProps.CloseState)
       : "";
   }, []);
@@ -89,12 +109,8 @@ export const About = ({ openMenu, setOpenMenu }: HamburgerProps) => {
 };
 
 export const Shop = ({ openMenu, setOpenMenu }: HamburgerProps) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    openMenu === NavbarStateProps.OpenState &&
-    ref.current &&
-    ref.current.scrollLeft < 1024
+    openMenu === NavbarStateProps.OpenState
       ? setOpenMenu(NavbarStateProps.CloseState)
       : "";
   }, []);
@@ -107,12 +123,8 @@ export const Shop = ({ openMenu, setOpenMenu }: HamburgerProps) => {
 };
 
 export const Contact = ({ openMenu, setOpenMenu }: HamburgerProps) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    openMenu === NavbarStateProps.OpenState &&
-    ref.current &&
-    ref.current.scrollLeft < 1024
+    openMenu === NavbarStateProps.OpenState
       ? setOpenMenu(NavbarStateProps.CloseState)
       : "";
   }, []);

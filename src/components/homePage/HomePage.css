@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .shop-now-btn-layout:hover {
+    filter: invert(44%) sepia(21%) saturate(4%) hue-rotate(346deg)
+      brightness(96%) contrast(85%);
+  }
+
+  .shop-now-btn-layout:hover > .shop-now-img {
+    padding-left: 24px;
+    filter: invert(44%) sepia(21%) saturate(4%) hue-rotate(346deg)
+      brightness(96%) contrast(85%);
+  }
+}
+
 @layer utilities {
   .hamburger-layout:hover {
     filter: brightness(0) saturate(100%) invert(36%) sepia(0%) saturate(600%)

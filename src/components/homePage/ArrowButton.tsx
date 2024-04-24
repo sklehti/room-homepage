@@ -1,12 +1,8 @@
+import { ArrayButtonClassProp } from "../../types";
 import angleLeftIcon from "./../../assets/images/icon-angle-left.svg";
 import angleRightIcon from "./../../assets/images/icon-angle-right.svg";
 
-interface Prop {
-  navRef: React.RefObject<HTMLDivElement>;
-  setMoveImgCarousel: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const ArrowButton = ({ navRef, setMoveImgCarousel }: Prop) => {
+const ArrowButton = ({ navRef, setMoveImgCarousel }: ArrayButtonClassProp) => {
   const sideScrollRight = (element: HTMLDivElement, step: number) => {
     if (
       navRef.current?.offsetWidth &&
@@ -45,7 +41,7 @@ const ArrowButton = ({ navRef, setMoveImgCarousel }: Prop) => {
   return (
     <>
       <button
-        className="bg-black px-4 py-3 lg:py-4 lg:px-5 cursor-pointer"
+        className="bg-black px-5 py-5 lg:py-6 lg:px-6 cursor-pointer hover:bg-[#747373]"
         onClick={() => {
           if (navRef.current)
             sideScrollLeft(
@@ -57,7 +53,7 @@ const ArrowButton = ({ navRef, setMoveImgCarousel }: Prop) => {
         <img src={angleLeftIcon} alt="angle left icon" className="w-2" />
       </button>
       <button
-        className="bg-black px-4 py-3  lg:py-4 lg:px-5 cursor-pointer"
+        className="bg-black px-5 py-5 lg:py-6 lg:px-6 cursor-pointer  hover:bg-[#747373]"
         onClick={() => {
           if (navRef.current)
             sideScrollRight(navRef.current, navRef.current?.offsetWidth);
