@@ -11,6 +11,8 @@ const ArrowButton = ({
   openMenu,
 }: ArrayButtonClassProp) => {
   const sideScrollRight = (element: HTMLDivElement, step: number) => {
+    console.log("oikea");
+
     if (
       navRef.current?.offsetWidth &&
       element.scrollLeft < navRef.current?.offsetWidth

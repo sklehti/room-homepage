@@ -4,7 +4,7 @@ import NavBar from "../navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import hamburgerIcon from "../../assets/images/icon-hamburger.svg";
 import { HamburgerProps, NavbarStateProps } from "../../types";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Mainpage = () => {
   const [openMenu, setOpenMenu] = useState(NavbarStateProps.DefaultState);
@@ -45,64 +45,68 @@ const Mainpage = () => {
   };
 
   return (
-    <div ref={ref} className="relative flex w-screen flex-row justify-center">
-      <h1 className="absolute z-10 py-10 mb-[-100px] text-center text-white text-xl lg:hidden">
-        room
-      </h1>
-      <div className="w-full max-w-[500px] lg:max-w-full lg:w-full">
-        <nav>
-          {openMenu === NavbarStateProps.OpenState ? (
-            <></>
-          ) : (
-            <>
-              <button
-                tabIndex={0}
-                onClick={handleOpen}
-                onKeyDown={(event) => {
-                  if (event.key === "Tab") {
-                    handleOpen();
-                  }
-                }}
-                className="absolute z-10 py-10 px-6 lg:hidden"
-              >
-                <img
-                  className="w-7 hamburger-layout"
-                  src={hamburgerIcon}
-                  alt="hamburger icon"
-                />
-              </button>
-            </>
-          )}
+    <HelmetProvider>
+      <div ref={ref} className="relative flex w-screen flex-row justify-center">
+        <h1 className="absolute z-10 py-10 mb-[-100px] text-center text-white text-xl lg:hidden">
+          room
+        </h1>
+        <div className="w-full max-w-[500px] lg:max-w-full lg:w-full">
+          <nav>
+            {openMenu === NavbarStateProps.OpenState ? (
+              <></>
+            ) : (
+              <>
+                <button
+                  tabIndex={0}
+                  onClick={handleOpen}
+                  onKeyDown={(event) => {
+                    if (event.key === "Tab") {
+                      handleOpen();
+                    }
+                  }}
+                  className="absolute z-10 py-10 px-6 lg:hidden"
+                >
+                  <img
+                    className="w-7 hamburger-layout"
+                    src={hamburgerIcon}
+                    alt="hamburger icon"
+                  />
+                </button>
+              </>
+            )}
 
-          <NavBar openMenu={openMenu} setOpenMenu={setOpenMenu} />
-        </nav>
+            <NavBar openMenu={openMenu} setOpenMenu={setOpenMenu} />
+          </nav>
 
-        <main>
-          <Routes>
-            <Route
-              element={
-                <Contact setOpenMenu={setOpenMenu} openMenu={openMenu} />
-              }
-              path="/contact"
-            />
-            <Route
-              element={<About setOpenMenu={setOpenMenu} openMenu={openMenu} />}
-              path="/about"
-            />
-            <Route
-              element={<Shop setOpenMenu={setOpenMenu} openMenu={openMenu} />}
-              path="/shop"
-            />
-            <Route
-              element={
-                <HomePage setOpenMenu={setOpenMenu} openMenu={openMenu} />
-              }
-              path="/"
-            />
-          </Routes>
-        </main>
+          <main>
+            <Routes>
+              <Route
+                element={
+                  <Contact setOpenMenu={setOpenMenu} openMenu={openMenu} />
+                }
+                path="/contact"
+              />
+              <Route
+                element={
+                  <About setOpenMenu={setOpenMenu} openMenu={openMenu} />
+                }
+                path="/about"
+              />
+              <Route
+                element={<Shop setOpenMenu={setOpenMenu} openMenu={openMenu} />}
+                path="/shop"
+              />
+              <Route
+                element={
+                  <HomePage setOpenMenu={setOpenMenu} openMenu={openMenu} />
+                }
+                path="/"
+              />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </HelmetProvider>
   );
 };
 

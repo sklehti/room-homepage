@@ -12,7 +12,7 @@ import "./HomePage.css";
 import { data } from "../../data";
 import React, { useEffect, useState } from "react";
 import { HamburgerProps, NavbarStateProps } from "../../types";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
   const [moveImgCarousel, setMoveImgCarousel] = useState(0);
@@ -221,6 +221,3 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
 };
 
 export default HomePage;
-function componentDidMount() {
-  throw new Error("Function not implemented.");
-}
