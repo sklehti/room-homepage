@@ -5,6 +5,7 @@ import angleRightIcon from "./../../assets/images/icon-angle-right.svg";
 const ArrowButton = ({
   navRef,
   setMoveImgCarousel,
+  moveImgCarousel,
   currentEntry,
   setCurrentEntry,
   setOpenMenu,
@@ -73,6 +74,7 @@ const ArrowButton = ({
   return (
     <>
       <button
+        tabIndex={moveImgCarousel === 0 ? 0 : -1}
         className="bg-black px-5 py-5 lg:py-6 lg:px-6 cursor-pointer hover:bg-[#747373]"
         onClick={() => {
           if (navRef.current)
@@ -93,6 +95,7 @@ const ArrowButton = ({
         <img src={angleLeftIcon} alt="angle left icon" className="w-2" />
       </button>
       <button
+        tabIndex={moveImgCarousel === 0 ? 0 : -1}
         className="bg-black px-5 py-5 lg:py-6 lg:px-6 cursor-pointer  hover:bg-[#747373]"
         onClick={() => {
           if (navRef.current)

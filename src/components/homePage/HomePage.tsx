@@ -117,6 +117,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                 <ArrowButton
                   navRef={ref}
                   setMoveImgCarousel={setMoveImgCarousel}
+                  moveImgCarousel={moveImgCarousel}
                   currentEntry={currentEntry}
                   setCurrentEntry={setCurrentEntry}
                   setOpenMenu={setOpenMenu}
@@ -133,6 +134,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                 <p>{d.information}</p>
 
                 <button
+                  tabIndex={moveImgCarousel === 0 ? 0 : -1}
                   onClick={() => {
                     alert("Coming soon...");
                     if (openMenu === NavbarStateProps.OpenState) {
@@ -171,6 +173,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                   <ArrowButton
                     navRef={ref}
                     setMoveImgCarousel={setMoveImgCarousel}
+                    moveImgCarousel={moveImgCarousel}
                     currentEntry={currentEntry}
                     setCurrentEntry={setCurrentEntry}
                     setOpenMenu={setOpenMenu}
