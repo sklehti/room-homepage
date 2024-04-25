@@ -11,12 +11,7 @@ const ArrowButton = ({
   openMenu,
 }: ArrayButtonClassProp) => {
   const sideScrollRight = (element: HTMLDivElement, step: number) => {
-    console.log("oikea");
-
-    if (
-      navRef.current?.offsetWidth &&
-      element.scrollLeft < navRef.current?.offsetWidth
-    ) {
+    if (navRef.current?.offsetWidth && element.scrollLeft === 0) {
       element.scrollLeft = navRef.current?.offsetWidth * 3;
     }
 
@@ -37,6 +32,8 @@ const ArrowButton = ({
     }
 
     setTimeout(() => {
+      setOpenMenu(NavbarStateProps.DefaultState);
+
       element.scrollLeft -= step;
       setMoveImgCarousel(0);
     }, 2001);
