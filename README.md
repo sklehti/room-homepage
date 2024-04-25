@@ -12,7 +12,7 @@ Users should be able to:
 
 ## Links
 
-- Live Site URL: [Add live site URL here](https://room-homepage-nine-coral.vercel.app)
+- Live Site URL: [Live site](https://room-homepage-nine-coral.vercel.app)
 
 ## To run locally
 
