@@ -32,11 +32,9 @@ const ArrowButton = ({
     }
 
     setTimeout(() => {
-      setOpenMenu(NavbarStateProps.DefaultState);
-
       element.scrollLeft -= step;
       setMoveImgCarousel(0);
-    }, 2001);
+    }, 1800);
   };
 
   const sideScrollLeft = (
@@ -69,7 +67,7 @@ const ArrowButton = ({
     setTimeout(() => {
       element.scrollLeft -= step;
       setMoveImgCarousel(0);
-    }, 2001);
+    }, 1800);
   };
 
   return (

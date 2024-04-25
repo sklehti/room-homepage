@@ -23,7 +23,7 @@
 
   .slider-right {
     animation-name: moveToRight;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-fill-mode: forwards;
     overflow: hidden;
   }
@@ -42,7 +42,7 @@
 
   .slider-left {
     animation-name: moveToLeft;
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-fill-mode: forwards;
     overflow: hidden;
   }
