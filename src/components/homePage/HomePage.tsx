@@ -12,9 +12,11 @@ import "./HomePage.css";
 import { data } from "../../data";
 import React, { useEffect, useState } from "react";
 import { HamburgerProps, NavbarStateProps } from "../../types";
+import { Helmet } from "react-helmet";
 
 const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
   const [moveImgCarousel, setMoveImgCarousel] = useState(0);
+  const [currentEntry, setCurrentEntry] = useState(1);
   const ref = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,6 +29,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
         setOpenMenu(NavbarStateProps.CloseState);
         setTimeout(() => {
           setOpenMenu(NavbarStateProps.DefaultState);
+          // setCurrentEntry(0);
         }, 500);
       }
     }
@@ -44,6 +47,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
 
         if (ref.current?.scrollLeft > 1023) {
           setOpenMenu(NavbarStateProps.DefaultState);
+          setCurrentEntry(1);
         }
       }
     };
@@ -56,6 +60,9 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
 
   return (
     <section className="relative">
+      <Helmet>
+        <title>Home page</title>
+      </Helmet>
       <div
         ref={ref}
         className="flex overflow-x-hidden w-full max-w-[500px] lg:w-full lg:max-w-full"
@@ -80,7 +87,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                       ? hero2MobileIcon
                       : hero3MobileIcon
                 }
-                alt=" hero 1"
+                alt="hero image"
                 className="w-full h-full lg:hidden"
               />
               <img
@@ -91,11 +98,16 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                       ? hero2Icon
                       : hero3Icon
                 }
-                alt=" hero 1"
+                alt="hero image"
                 className="w-full h-full hidden lg:block"
               />
+
               <div
-                className="absolute bottom-0 right-0 lg:hidden"
+                className={
+                  index === currentEntry
+                    ? "absolute bottom-0 right-0 lg:hidden"
+                    : "hidden"
+                }
                 style={
                   moveImgCarousel === 1 || moveImgCarousel === -1
                     ? { pointerEvents: "none" }
@@ -105,6 +117,10 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                 <ArrowButton
                   navRef={ref}
                   setMoveImgCarousel={setMoveImgCarousel}
+                  currentEntry={currentEntry}
+                  setCurrentEntry={setCurrentEntry}
+                  setOpenMenu={setOpenMenu}
+                  openMenu={openMenu}
                 />
               </div>
             </div>
@@ -117,8 +133,21 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                 <p>{d.information}</p>
 
                 <button
-                  onClick={() => alert("Coming soon...")}
-                  className="flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold shop-now-btn-layout"
+                  onClick={() => {
+                    alert("Coming soon...");
+                    if (openMenu === NavbarStateProps.OpenState) {
+                      setOpenMenu(NavbarStateProps.CloseState);
+
+                      setTimeout(() => {
+                        setOpenMenu(NavbarStateProps.DefaultState);
+                      }, 500);
+                    }
+                  }}
+                  className={
+                    index === currentEntry
+                      ? "flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold shop-now-btn-layout"
+                      : "flex flex-row py-10 text-xs items-center tracking-[10px] uppercase font-semibold shop-now-btn-layout invisible"
+                  }
                 >
                   Shop now
                   <img
@@ -128,7 +157,11 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                   />
                 </button>
                 <div
-                  className="lg:absolute hidden lg:block lg:bottom-0 lg:left-0"
+                  className={
+                    index === currentEntry
+                      ? "lg:absolute hidden lg:block lg:bottom-0 lg:left-0"
+                      : "hidden"
+                  }
                   style={
                     moveImgCarousel === 1 || moveImgCarousel === -1
                       ? { pointerEvents: "none" }
@@ -138,6 +171,10 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
                   <ArrowButton
                     navRef={ref}
                     setMoveImgCarousel={setMoveImgCarousel}
+                    currentEntry={currentEntry}
+                    setCurrentEntry={setCurrentEntry}
+                    setOpenMenu={setOpenMenu}
+                    openMenu={openMenu}
                   />
                 </div>
               </div>
@@ -145,9 +182,14 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
           </div>
         ))}
       </div>
+
       <div className="lg:flex lg:justify-between bg-white lg:space">
         <div className="relative lg:h-[40vh]">
-          <img src={imgAboutDarkIcon} alt=" hero 1" className="w-full h-full" />
+          <img
+            src={imgAboutDarkIcon}
+            alt="dark image"
+            className="w-full h-full"
+          />
         </div>
 
         <div className="p-4 relative lg:w-2/5 lg:flex lg:justify-center g:h-[40vh]">
@@ -169,7 +211,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
         <div className="relative g:h-[40vh]">
           <img
             src={imgAboutLightIcon}
-            alt=" hero 1"
+            alt="light image"
             className="w-full h-full"
           />
         </div>
@@ -179,3 +221,6 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
 };
 
 export default HomePage;
+function componentDidMount() {
+  throw new Error("Function not implemented.");
+}

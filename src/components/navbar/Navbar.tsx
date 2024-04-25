@@ -31,7 +31,7 @@ const NavBar = ({ openMenu, setOpenMenu }: HamburgerProps) => {
         }
       >
         <ul className="flex flex-row justify-center py-10 font-bold lowercase text-[0.95rem] lg:justify-start lg:text-white lg:flex">
-          <li className="cursor-pointer  px-[4vw] lg:hidden">
+          <li className="cursor-pointer  px-[3vw] lg:hidden">
             <button
               onClick={handleClose}
               className="flex flex-col justify-center py-1 cursor-pointer"
@@ -44,13 +44,19 @@ const NavBar = ({ openMenu, setOpenMenu }: HamburgerProps) => {
             </button>
           </li>
 
-          <li className="px-[4vw]">
+          <li>
+            <h1 className="px-[3vw] hidden lg:block text-2xl mt-[-5px]">
+              room
+            </h1>
+          </li>
+
+          <li className="px-[3vw]">
             <NavLink className="cursor-pointer  hover:text-[#747373]" to="/">
               Home
               <hr className="hidden" />
             </NavLink>
           </li>
-          <li className="px-[4vw]">
+          <li className="px-[3vw]">
             <NavLink
               className="cursor-pointer  hover:text-[#747373]"
               to="/shop"
@@ -59,7 +65,7 @@ const NavBar = ({ openMenu, setOpenMenu }: HamburgerProps) => {
               <hr className="hidden" />
             </NavLink>
           </li>
-          <li className="px-[4vw]">
+          <li className="px-[3vw]">
             <NavLink
               className="cursor-pointer  hover:text-[#747373]"
               to="/about"
@@ -68,7 +74,7 @@ const NavBar = ({ openMenu, setOpenMenu }: HamburgerProps) => {
               <hr className="hidden" />
             </NavLink>
           </li>
-          <li className="px-[4vw] md:px-5">
+          <li className="px-[3vw] md:px-5">
             <NavLink
               className="cursor-pointer  hover:text-[#747373]"
               to="/contact"

@@ -1,8 +1,15 @@
-import { ArrayButtonClassProp } from "../../types";
+import { ArrayButtonClassProp, NavbarStateProps } from "../../types";
 import angleLeftIcon from "./../../assets/images/icon-angle-left.svg";
 import angleRightIcon from "./../../assets/images/icon-angle-right.svg";
 
-const ArrowButton = ({ navRef, setMoveImgCarousel }: ArrayButtonClassProp) => {
+const ArrowButton = ({
+  navRef,
+  setMoveImgCarousel,
+  currentEntry,
+  setCurrentEntry,
+  setOpenMenu,
+  openMenu,
+}: ArrayButtonClassProp) => {
   const sideScrollRight = (element: HTMLDivElement, step: number) => {
     if (
       navRef.current?.offsetWidth &&
@@ -12,6 +19,20 @@ const ArrowButton = ({ navRef, setMoveImgCarousel }: ArrayButtonClassProp) => {
     }
 
     setMoveImgCarousel(1);
+
+    if (openMenu === NavbarStateProps.OpenState) {
+      setOpenMenu(NavbarStateProps.CloseState);
+
+      setTimeout(() => {
+        setOpenMenu(NavbarStateProps.DefaultState);
+      }, 500);
+    }
+
+    if (currentEntry === 0) {
+      setCurrentEntry(2);
+    } else {
+      setCurrentEntry(currentEntry - 1);
+    }
 
     setTimeout(() => {
       element.scrollLeft -= step;
@@ -32,6 +53,20 @@ const ArrowButton = ({ navRef, setMoveImgCarousel }: ArrayButtonClassProp) => {
     }
     setMoveImgCarousel(-1);
 
+    if (openMenu === NavbarStateProps.OpenState) {
+      setOpenMenu(NavbarStateProps.CloseState);
+
+      setTimeout(() => {
+        setOpenMenu(NavbarStateProps.DefaultState);
+      }, 500);
+    }
+
+    if (currentEntry === 3) {
+      setCurrentEntry(1);
+    } else {
+      setCurrentEntry(currentEntry + 1);
+    }
+
     setTimeout(() => {
       element.scrollLeft -= step;
       setMoveImgCarousel(0);
@@ -49,6 +84,14 @@ const ArrowButton = ({ navRef, setMoveImgCarousel }: ArrayButtonClassProp) => {
               -Number(navRef.current?.offsetWidth)
             );
         }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowLeft")
+            if (navRef.current)
+              sideScrollLeft(
+                navRef.current,
+                -Number(navRef.current?.offsetWidth)
+              );
+        }}
       >
         <img src={angleLeftIcon} alt="angle left icon" className="w-2" />
       </button>
@@ -57,6 +100,11 @@ const ArrowButton = ({ navRef, setMoveImgCarousel }: ArrayButtonClassProp) => {
         onClick={() => {
           if (navRef.current)
             sideScrollRight(navRef.current, navRef.current?.offsetWidth);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowRight")
+            if (navRef.current)
+              sideScrollRight(navRef.current, navRef.current?.offsetWidth);
         }}
       >
         <img src={angleRightIcon} alt="angle right icon" className="w-2" />
