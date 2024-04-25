@@ -56,7 +56,7 @@ const HomePage = ({ openMenu, setOpenMenu }: HamburgerProps) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [window.onresize]);
 
   return (
     <section className="relative">
