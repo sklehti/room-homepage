@@ -35,7 +35,7 @@ const ArrowButton = ({
     setTimeout(() => {
       element.scrollLeft -= step;
       setMoveImgCarousel(0);
-    }, 1800);
+    }, 1499);
   };
 
   const sideScrollLeft = (
@@ -68,7 +68,7 @@ const ArrowButton = ({
     setTimeout(() => {
       element.scrollLeft -= step;
       setMoveImgCarousel(0);
-    }, 1800);
+    }, 1499);
   };
 
   return (
